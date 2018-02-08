@@ -4,3 +4,6 @@
 # Executables
 *.exe
 
+*.ppk
+
+*.pub
