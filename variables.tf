@@ -1,6 +1,6 @@
 variable "public_key_path" {
   description = "public key path"
-  default = "/root/.ssh/id_rsa"
+  default = "/home/avishekdas/working/terraform/id_rsa.pub"
 }
 
 variable "key_name" {
