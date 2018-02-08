@@ -1,6 +1,6 @@
 variable "public_key_path" {
   description = "public key path"
-  default = "/home/avishekdas/working/terraform/id_rsa.pub"
+  default = "C:/Workspace/Terraform/avishekgit/terraform/id_rsa.ppk"
 }
 
 variable "key_name" {
