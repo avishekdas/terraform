@@ -1,8 +1,8 @@
 # Specify the provider and access details
 provider "aws" {
   region = "${var.aws_region}"
-  access_key = "AKIAIV32XJG2Z67VLFSA"
-  secret_key = "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"
+  access_key = "AKIAJHTDQEGZ2YOR3DGQ"
+  secret_key = "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"
 }
 
 # Create a VPC to launch our instances into
