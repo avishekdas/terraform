@@ -81,6 +81,20 @@ resource "aws_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+resource "aws_elb" "web" {
+  name = "terraform-example-elb"
+
+  subnets         = ["${aws_subnet.default.id}"]
+  security_groups = ["${aws_security_group.elb.id}"]
+  instances       = ["${aws_instance.web.id}"]
+
+  listener {
+    instance_port     = 80
+    instance_protocol = "http"
+    lb_port           = 80
+    lb_protocol       = "http"
+  }
+}
 resource "aws_key_pair" "auth" {
   key_name   = "${var.key_name}"
   public_key = "${file(var.public_key_path)}"
@@ -119,8 +133,8 @@ resource "aws_instance" "web" {
   # this should be on port 80
   provisioner "remote-exec" {
     inline = [
-      "sudo apt-get -y update",
-      "sudo apt-get -y install nginx",
+      "sudo yum -y update",
+      "sudo yum -y install nginx",
       "sudo service nginx start",
     ]
   }
