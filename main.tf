@@ -128,6 +128,15 @@ resource "aws_instance" "web" {
   # backend instances.
   subnet_id = "${aws_subnet.default.id}"
 
+  tags {
+    Name = "webserver"
+    # required for ops reporting
+    Stream = "stream_tag"
+    ServerRole = "role_tag"
+    "Cost Center" = "costcenter_tag"
+    Environment = "environment_tag"
+  }
+  
   # We run a remote provisioner on the instance after creating it.
   # In this case, we just install nginx and start it. By default,
   # this should be on port 80
