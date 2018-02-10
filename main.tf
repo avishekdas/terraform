@@ -142,9 +142,35 @@ resource "aws_instance" "web" {
   # this should be on port 80
   provisioner "remote-exec" {
     inline = [
-      "sudo yum -y update",
-      "sudo yum -y install nginx",
+      "sudo -i",
+	  "mkdir /usr/java",
+	  "sudo yum -y update",
+	  "sudo yum -y install nginx",
       "sudo service nginx start",
+	  "sudo yum -y install git",
+	  "mkdir /usr/setup",
+	  "cd /usr/setup",
+	  "git clone https://github.com/avishekdas/linuxscripts.git",
+	  "cd linuxscripts",
+	  "chmod 777 *.*",
+	  "./get_oracle_jdk_linux_x64.sh",
+	  "FILENAME="$(ls -Art *.gz | tail -n 1)"",
+	  "mkdir /usr/java",
+	  "tar xzf $FILENAME -C /usr/java --strip-components=1",
+	  "JAVA_HOME=/usr/java",
+	  "export JAVA_HOME",
+	  "PATH=$JAVA_HOME/bin:$PATH",
+	  "export PATH",
+	  "mkdir /usr/tomcat",
+	  "cd /usr/setup/linuxscripts",
+	  "wget http://ftp.cixug.es/apache/tomcat/tomcat-7/v7.0.84/bin/apache-tomcat-7.0.84.tar.gz",
+	  "tar zxpvf apache-tomcat-7.0.84.tar.gz -C /usr/tomcat --strip-components=1",
+	  "yes | cp -f tomcat-users.xml /usr/tomcat/conf/",
+	  "cd /usr/tomcat/bin",
+	  "sh startup.sh",
+	  "cp /usr/setup/linuxscripts/nginx.conf /etc/nginx/",
+	  "sudo /etc/init.d/nginx stop",
+	  "sudo /etc/init.d/nginx start",
     ]
   }
 }
