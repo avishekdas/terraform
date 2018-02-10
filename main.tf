@@ -153,7 +153,7 @@ resource "aws_instance" "web" {
 	  "cd linuxscripts",
 	  "chmod 777 *.*",
 	  "./get_oracle_jdk_linux_x64.sh",
-	  "FILENAME="$(ls -Art *.gz | tail -n 1)"",
+	  "FILENAME=\"$(ls -Art *.gz | tail -n 1)\"",
 	  "mkdir /usr/java",
 	  "tar xzf $FILENAME -C /usr/java --strip-components=1",
 	  "JAVA_HOME=/usr/java",
