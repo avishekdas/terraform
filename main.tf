@@ -143,7 +143,6 @@ resource "aws_instance" "web" {
   provisioner "remote-exec" {
     inline = [
       "sudo -i",
-	  "mkdir /usr/java",
 	  "sudo yum -y update",
 	  "sudo yum -y install nginx",
       "sudo service nginx start",
@@ -168,7 +167,7 @@ resource "aws_instance" "web" {
 	  "yes | cp -f tomcat-users.xml /usr/tomcat/conf/",
 	  "cd /usr/tomcat/bin",
 	  "sh startup.sh",
-	  "cp /usr/setup/linuxscripts/nginx.conf /etc/nginx/",
+	  "yes | cp -f /usr/setup/linuxscripts/nginx.conf /etc/nginx/",
 	  "sudo /etc/init.d/nginx stop",
 	  "sudo /etc/init.d/nginx start",
     ]
